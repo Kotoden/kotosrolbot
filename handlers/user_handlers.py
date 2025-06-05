@@ -2,10 +2,10 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 from database.db import get_db
-from sqlalchemy.orm import Session
 from database import crud, models
 
 router = Router()
+
 
 @router.message(Command(commands=["start", "help"]))
 async def cmd_start(message: Message) -> None:
@@ -25,6 +25,7 @@ async def cmd_start(message: Message) -> None:
         "/help — эта подсказка\n"
     )
 
+
 @router.message(Command(commands=["categories"]))
 async def cmd_categories(message: Message) -> None:
     with next(get_db()) as db:
@@ -37,6 +38,7 @@ async def cmd_categories(message: Message) -> None:
         text += f"{cat.id}. {cat.name}\n"
     text += "\nЧтобы увидеть товары, введите /products <category_id>"
     await message.reply(text)
+
 
 @router.message(Command(commands=["products"]))
 async def cmd_products(message: Message) -> None:
@@ -57,6 +59,7 @@ async def cmd_products(message: Message) -> None:
         )
     text += "\nЧтобы купить: /buy <product_id> <quantity>"
     await message.reply(text)
+
 
 @router.message(Command(commands=["buy"]))
 async def cmd_buy(message: Message) -> None:
@@ -87,6 +90,7 @@ async def cmd_buy(message: Message) -> None:
         "Спасибо за покупку!"
     )
 
+
 @router.message(Command(commands=["orders"]))
 async def cmd_orders(message: Message) -> None:
     tg_id = message.from_user.id
@@ -105,6 +109,7 @@ async def cmd_orders(message: Message) -> None:
         text += f"#{o.id}: <i>{o.status}</i>, {ts}\n"
     text += "\nПодробнее: /order <order_id>"
     await message.reply(text)
+
 
 @router.message(Command(commands=["order"]))
 async def cmd_order_details(message: Message) -> None:

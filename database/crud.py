@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List, Optional, Tuple
-from sqlalchemy.exc     import NoResultFound
+from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
 from database.models import User, Category, Product, Order, OrderItem
 

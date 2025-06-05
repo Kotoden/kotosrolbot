@@ -2,7 +2,6 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 from database.db import get_db
-from sqlalchemy.orm import Session
 from database import crud, models
 
 router = Router()
