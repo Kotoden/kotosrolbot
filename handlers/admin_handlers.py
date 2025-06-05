@@ -24,7 +24,7 @@ async def cmd_add_product(message: Message) -> None:
     if len(parts) != 5:
         await message.reply(
             "Использование:\n"
-            "/add_product <name>|<description>|<price>|<quantity>|<category_id>"
+            "/add_product &lt;name&gt;|&lt;description&gt;|&lt;price&gt;|&lt;quantity&gt;|&lt;category_id&gt;"
         )
         return
     name, description, price_str, qty_str, cat_id_str = [p.strip() for p in parts]
@@ -55,7 +55,7 @@ async def cmd_update_product(message: Message) -> None:
     if len(parts) != 6 or not parts[0].isdigit():
         await message.reply(
             "Использование:\n"
-            "/update_product <product_id>|<name?>|<description?>|<price?>|<quantity?>|<category_id?>"
+            "/update_product &lt;product_id&gt;|&lt;name?&gt;|&lt;description?&gt;|&lt;price?&gt;|&lt;quantity?&gt;|&lt;category_id?&gt;"
         )
         return
     product_id = int(parts[0])
@@ -85,7 +85,7 @@ async def cmd_delete_product(message: Message) -> None:
         return
     parts = message.text.split()
     if len(parts) != 2 or not parts[1].isdigit():
-        await message.reply("Использование: /delete_product <product_id>")
+        await message.reply("Использование: /delete_product &lt;product_id&gt;")
         return
     product_id = int(parts[1])
     with next(get_db()) as db:

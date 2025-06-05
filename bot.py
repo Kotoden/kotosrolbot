@@ -3,6 +3,7 @@
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher
+from aiogram.enums import ParseMode
 import config
 from database.db import init_db
 from handlers import user_handlers, admin_handlers
@@ -13,9 +14,8 @@ logger = logging.getLogger(__name__)
 # Создаём таблицы в БД (если ещё не созданы)
 init_db()
 
-# Инициализируем бота (УБРАЛИ parse_mode из конструктора)
-# Будет использовать MarkdownV2 (по умолчанию) или простой текст.
-bot = Bot(token=config.TOKEN)
+# Инициализируем бота с режимом форматирования HTML
+bot = Bot(token=config.TOKEN, parse_mode=ParseMode.HTML)
 
 # Dispatcher
 dp = Dispatcher()

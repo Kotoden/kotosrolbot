@@ -19,9 +19,9 @@ async def cmd_start(message: Message) -> None:
         "Доступные команды:\n"
         "/categories — список категорий\n"
         "/products [category_id] — товары\n"
-        "/buy <product_id> <quantity> — купить товар\n"
+        "/buy &lt;product_id&gt; &lt;quantity&gt; — купить товар\n"
         "/orders — ваши заказы\n"
-        "/order <order_id> — детали заказа\n"
+        "/order &lt;order_id&gt; — детали заказа\n"
         "/help — эта подсказка\n"
     )
 
@@ -36,7 +36,7 @@ async def cmd_categories(message: Message) -> None:
     text = "<b>Категории:</b>\n"
     for cat in cats:
         text += f"{cat.id}. {cat.name}\n"
-    text += "\nЧтобы увидеть товары, введите /products <category_id>"
+    text += "\nЧтобы увидеть товары, введите /products &lt;category_id&gt;"
     await message.reply(text)
 
 
@@ -57,7 +57,7 @@ async def cmd_products(message: Message) -> None:
             f"{p.id}. {p.name} — {p.price:.2f}₽ (в наличии: {p.quantity})\n"
             f"   Категория: {p.category.name}\n"
         )
-    text += "\nЧтобы купить: /buy <product_id> <quantity>"
+    text += "\nЧтобы купить: /buy &lt;product_id&gt; &lt;quantity&gt;"
     await message.reply(text)
 
 
@@ -65,7 +65,7 @@ async def cmd_products(message: Message) -> None:
 async def cmd_buy(message: Message) -> None:
     parts = message.text.split()
     if len(parts) != 3 or not parts[1].isdigit() or not parts[2].isdigit():
-        await message.reply("Использование: /buy <product_id> <quantity>")
+        await message.reply("Использование: /buy &lt;product_id&gt; &lt;quantity&gt;")
         return
     product_id = int(parts[1])
     qty = int(parts[2])
@@ -107,7 +107,7 @@ async def cmd_orders(message: Message) -> None:
     for o in orders:
         ts = o.created_at.strftime("%Y-%m-%d %H:%M")
         text += f"#{o.id}: <i>{o.status}</i>, {ts}\n"
-    text += "\nПодробнее: /order <order_id>"
+    text += "\nПодробнее: /order &lt;order_id&gt;"
     await message.reply(text)
 
 
@@ -115,7 +115,7 @@ async def cmd_orders(message: Message) -> None:
 async def cmd_order_details(message: Message) -> None:
     parts = message.text.split()
     if len(parts) != 2 or not parts[1].isdigit():
-        await message.reply("Использование: /order <order_id>")
+        await message.reply("Использование: /order &lt;order_id&gt;")
         return
     order_id = int(parts[1])
     tg_id = message.from_user.id
